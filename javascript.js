@@ -29,24 +29,26 @@ let phraseIndex = 0;
 let yesButtonScale = 1;
 let yesButtonFontSize = 1.5; // starting in rem
 
-function handleNoInteraction() {
-    // 1. Move the No button to a random position to make it "unclickable"
-    const padding = 20;
-    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+function handleNoInteraction(shouldMove = true) {
+    // 1. Move the No button to a random position only if shouldMove is true
+    if (shouldMove) {
+        const padding = 20;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+        const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+        const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
 
-    noBtn.style.position = 'fixed';
-    noBtn.style.left = `${randomX}px`;
-    noBtn.style.top = `${randomY}px`;
-    noBtn.style.zIndex = '1000';
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = `${randomX}px`;
+        noBtn.style.top = `${randomY}px`;
+        noBtn.style.zIndex = '1000';
+    }
 
     // 2. Change the text and image
     if (phraseIndex < noPhrases.length) {
         noBtn.innerText = noPhrases[phraseIndex];
-        statusGif.src = noGifs[phraseIndex];
+        statusGif.src = noGifs[Math.min(phraseIndex, noGifs.length - 1)];
         phraseIndex++;
     } else {
         // Keep the last phrase and image visible if they keep trying to say No
@@ -66,8 +68,9 @@ function handleNoInteraction() {
 }
 
 // Trigger logic on both click and mouse hover for maximum trap efficiency
-noBtn.addEventListener('mouseenter', handleNoInteraction);
-noBtn.addEventListener('click', handleNoInteraction);
+// Only move the button on mouse enter, not on click
+noBtn.addEventListener('mouseenter', () => handleNoInteraction(true));
+noBtn.addEventListener('click', () => handleNoInteraction(false));
 
 // When they finally click YES
 yesBtn.addEventListener('click', () => {
