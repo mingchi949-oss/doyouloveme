@@ -26,7 +26,6 @@ const noGifs = [
 ];
 
 let phraseIndex = 0;
-let yesButtonScale = 1.0; // Initialize the scale for the Yes button
 
 function handleNoInteraction(event) {
     // Check if it's a touch device (for mobile-like click behavior)
@@ -74,10 +73,6 @@ function handleNoInteraction(event) {
         noBtn.innerText = noPhrases[noPhrases.length - 1];
         statusGif.src = noGifs[noGifs.length - 1];
     }
-
-    // Zoom in the Yes button (make it bigger)
-    yesButtonScale += 0.2; // Increase the scale factor
-    yesBtn.style.transform = `scale(${yesButtonScale})`; // Apply the new scale
 }
 
 // Trigger logic on both click and mouse hover for maximum trap efficiency
