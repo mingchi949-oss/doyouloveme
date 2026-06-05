@@ -26,8 +26,6 @@ const noGifs = [
 ];
 
 let phraseIndex = 0;
-let yesButtonScale = 1;
-let yesButtonFontSize = 1.5; // starting in rem
 
 function handleNoInteraction(shouldMove = true) {
     // 1. Move the No button to a random position only if shouldMove is true
@@ -55,16 +53,6 @@ function handleNoInteraction(shouldMove = true) {
         noBtn.innerText = noPhrases[noPhrases.length - 1];
         statusGif.src = noGifs[noGifs.length - 1];
     }
-
-    // 3. Make the "Yes" button bigger
-    yesButtonScale += 0.4; // Increases scale multiplier
-    yesButtonFontSize += 0.3; // Increases text size
-    
-    yesBtn.style.transform = `scale(${yesButtonScale})`;
-    yesBtn.style.fontSize = `${yesButtonFontSize}rem`;
-    
-    // Optional: Make the "Yes" button take over padding as it gets massive
-    yesBtn.style.padding = `${15 + (yesButtonScale * 5)}px ${35 + (yesButtonScale * 10)}px`;
 }
 
 // Trigger logic on both click and mouse hover for maximum trap efficiency
